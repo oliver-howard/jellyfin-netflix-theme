@@ -1,8 +1,7 @@
-<p align="center"><img src="assets/jellyflix-banner.png" alt="Jellyflix" width="640"></p>
-
-# Jellyflix
-
-A CSS theme for Jellyfin that makes the Jellyfin 12 web client look like Netflix.
+<p align="center">
+  <img src="assets/jellyflix-banner.png" alt="Jellyflix" width="420">
+</p>
+<p align="center">A CSS theme for Jellyfin that makes the Jellyfin 12 web client look like Netflix.</p>
 
 ## Install
 Paste this into Dashboard → Branding → Custom CSS and save:
