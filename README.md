@@ -9,6 +9,16 @@
     { printf '/* Netflix theme for Jellyfin 12 — generated from ~/jellyfin-netflix-theme/netflix.css (edit that file, not this). */\n'; python3 -I tools/minify.py netflix.css; } > netflix.min.css
 Paste `netflix.min.css` into Dashboard → Branding → Custom CSS (or the readable `netflix.css`; both work).
 
+## One-line import
+Instead of pasting the file, put this in Custom CSS:
+
+    @import url("https://cdn.jsdelivr.net/gh/oliver-howard/jellyfin-netflix-theme@main/netflix.min.css");
+
+- Use jsDelivr, not `raw.githubusercontent.com` (served as `text/plain`, so browsers reject it).
+- jsDelivr caches `@main` for up to 12 hours. To update sooner, open the same path on `https://purge.jsdelivr.net/`.
+- Swap `@main` for a tag or commit SHA (e.g. `@v1.0.0`) to pin a version.
+- Custom rules go below the import line.
+
 ## Undo
 Clear Dashboard → Branding → Custom CSS and save.
 
