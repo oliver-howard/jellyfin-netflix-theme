@@ -1110,3 +1110,149 @@ body:has(#slides-container:not([style*="none"])) .homeSectionsContainer {
   .layout-desktop .emby-scroller .overflowBackdropCard:hover .cardOverlayButton-br .cardOverlayButtonIcon { font-size: 12px !important; }
 }
 @keyframes nf-pop-in { from { opacity: 0; } }
+
+/* ---------- 18. Sign in and profile selector ---------- */
+/* Measured Netflix selector: 128px avatars, 160px buttons, 8px gaps,
+   32/38.4px heading, 18/21.6px names, 40px outlined action pills.
+   Keep Jellyfin's authentication controls and actual user artwork. */
+html:not(.transparentDocument) body:has(#loginPage:not(.hide)) .backgroundContainer:not(.backgroundContainer-transparent) {
+  background: radial-gradient(max(1600px, 125vw) at 50% -54dvh,
+    rgba(111, 24, 29, .8) 19%, rgba(56, 12, 15, .4) 60%, transparent 100%), #000 !important;
+}
+#loginPage:not(.hide) {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
+  min-height: calc(100dvh - var(--nf-header-h));
+  height: auto !important;
+  padding: 0 24px 24px !important;
+  contain: style;
+}
+#loginPage > .margin-auto-y {
+  width: 100%;
+  box-sizing: border-box;
+  margin: auto 0 !important;
+  padding: 24px 0 !important;
+}
+body:has(#loginPage:not(.hide)) header.MuiAppBar-root {
+  background: none !important;
+  animation: none;
+}
+#loginPage .visualLoginForm > h1 {
+  margin: 0 0 16px;
+  text-align: center;
+  font-size: 0;
+  font-weight: 700;
+  line-height: 38.4px;
+}
+#loginPage .visualLoginForm > h1::after {
+  content: "Who's watching?";
+  font-size: 32px;
+}
+#loginPage #divUsers {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0 8px;
+  max-width: 840px;
+  margin: 0 auto;
+}
+#loginPage #divUsers .card {
+  flex: 0 0 160px;
+  width: 160px !important;
+  padding: 16px !important;
+  margin: 0 !important;
+  box-sizing: border-box;
+  background: transparent !important;
+  border-radius: 16px;
+  color: var(--nf-text-muted);
+}
+#loginPage #divUsers .cardBox { margin: 0 !important; }
+#loginPage #divUsers :is(.cardScalable, .cardImageContainer) { border-radius: 12px !important; }
+#loginPage #divUsers .cardScalable { overflow: hidden; }
+#loginPage #divUsers .cardFooter { margin: 24px 0 0; padding: 0; background: none; }
+#loginPage #divUsers .cardText {
+  padding: 0 !important;
+  color: inherit !important;
+  text-align: center !important;
+  font-size: 18px !important;
+  font-weight: 500;
+  line-height: 21.6px;
+}
+#loginPage #divUsers .card:is(:hover, :focus-visible) { color: #fff; }
+#loginPage #divUsers .card:is(:hover, :focus-visible) .cardScalable {
+  outline: 3px solid #fff;
+  outline-offset: -3px;
+}
+#loginPage > div > .readOnlyContent {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  max-width: 600px;
+  margin: 36px auto 0 !important;
+}
+#loginPage .readOnlyContent .emby-button,
+#loginPage .btnCancel {
+  width: auto;
+  min-height: 40px;
+  margin: 0;
+  padding: 6px 16px;
+  border: 1px solid rgba(255, 255, 255, .4);
+  border-radius: 9999px;
+  background: rgba(0, 0, 0, .7);
+  box-shadow: none;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 16px;
+}
+#loginPage :is(.readOnlyContent .emby-button, .btnCancel):is(:hover, :focus-visible) {
+  background: rgba(128, 128, 128, .4);
+  border-color: #fff;
+}
+#loginPage .manualLoginForm { width: 100%; max-width: 360px; }
+#loginPage .manualLoginForm > .flex { justify-content: flex-start; padding: 0 !important; }
+#loginPage .manualLoginForm .sectionTitle {
+  margin: 0 0 28px;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 38.4px;
+}
+#loginPage .manualLoginForm .emby-input {
+  box-sizing: border-box;
+  min-height: 56px;
+  border: 1px solid rgba(255, 255, 255, .7);
+  border-radius: 4px;
+  background: rgba(22, 22, 22, .7);
+  color: #fff;
+}
+#loginPage .manualLoginForm .inputLabel { color: var(--nf-text-muted) !important; }
+#loginPage .manualLoginForm .emby-input:focus { outline: 2px solid #fff; outline-offset: 2px; }
+#loginPage .manualLoginForm .button-submit {
+  min-height: 40px;
+  border-radius: 4px;
+  background: var(--nf-red);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+  box-shadow: none;
+}
+#loginPage .manualLoginForm .button-submit:hover { background: #c11119; }
+#loginPage .btnCancel { width: 100%; }
+@media (max-width: 599px) {
+  #loginPage:not(.hide) { padding-left: 16px !important; padding-right: 16px !important; }
+  #loginPage #divUsers { max-width: 312px; }
+  #loginPage #divUsers .card { flex-basis: 96px; width: 96px !important; padding: 12px !important; }
+  #loginPage #divUsers :is(.cardScalable, .cardImageContainer) { border-radius: 8px !important; }
+  #loginPage #divUsers .cardFooter { margin-top: 12px; }
+  #loginPage #divUsers .cardText {
+    min-height: 33.6px;
+    font-size: 14px !important;
+    line-height: 16.8px;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+  #loginPage > div > .readOnlyContent { margin-top: 32px !important; }
+}

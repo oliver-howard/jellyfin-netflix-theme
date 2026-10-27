@@ -59,6 +59,16 @@ Main reference viewport: 1384×797 CSS px. Values are CSS px unless noted.
 - Buttons: background-color .25s cubic-bezier(.4,0,.68,.06).
 - Hover-card expand: Netflix delays about 400ms, then scales over about 300ms.
 
+## Profile selector
+Measured from the live Netflix profile selector on 2026-10-26 at 2374×1723 and 393×852 CSS px.
+
+- Background: black with `radial-gradient(max(1600px, 125vw) at 50% -54dvh, rgba(111,24,29,.8) 19%, rgba(56,12,15,.4) 60%, transparent 100%)`.
+- Heading: 32px / 38.4px, weight 700. Group gap 16px, centred in the space below the 80px header, with 24px bottom padding.
+- Desktop profile buttons: 160px wide, padding 16px, radius 16px, 8px between buttons. Artwork 128×128, radius 12px. Name 24px below artwork, 18px / 21.6px, weight 500.
+- Phone profile buttons: 96px wide, padding 12px, artwork 72×72. Three columns at 393px; names 14px / 16.8px, 12px below artwork.
+- Manage Profiles: 40px tall, 16px / 16px, weight 500, padding 6px 16px, pill radius, `rgba(0,0,0,.7)` fill; 36px below desktop profiles, 32px on phone.
+- Jellyfin mapping: `#loginPage .visualLoginForm`, `#divUsers`, `.manualLoginForm`, and `.readOnlyContent`. Nine profiles wrap into two centred rows on desktop and three on phone. Jellyfin's authentication actions replace the Manage Profiles action; actual user pictures remain. Long names may wrap on phone to preserve identification. The visible selector heading is supplied by CSS; Jellyfin retains its original sign-in heading in the DOM.
+
 ## Jellyfin mapping and limits
 - Header → `.skinHeader` / MUI `header.MuiAppBar-root` (Jellyfin 12 uses the MUI app bar).
 - Rows → `.verticalSection > .sectionTitle` + `.emby-scroller .itemsContainer > .card`.
