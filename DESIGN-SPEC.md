@@ -48,7 +48,7 @@ Main reference viewport: 1384×797 CSS px. Values are CSS px unless noted.
 - Primary button (Play): white bg, black text, radius 9999px, padding 8px 20px, height 48 (hero). Modal variant: radius 4px, padding 8px 22px.
 - Secondary (More Info): `rgba(128,128,128,.4)`, white text, same pill shape.
 - Round icon buttons: 38px, 2px `rgba(255,255,255,.5)` border, `rgba(42,42,42,.6)` fill, radius 50%.
-- Hover card: about 1.5× scale (251→377 wide) after a short delay; radius 6px; shadow `0 3px 10px rgba(0,0,0,.75)`; `#181818` info panel, 16px padding, round buttons, red 2px progress line.
+- Hover card: about 1.5× scale (251→377 wide; 368→552 measured again) after a short delay, centred on the card; radius 6px; shadow `0 3px 10px rgba(0,0,0,.75)`; `#181818` info panel, 16px padding, round buttons, red 2px progress line. Panel buttons: 34px white play disc, then 38px round buttons with a 2px `rgba(255,255,255,.5)` border on `rgba(42,42,42,.6)`, 8px apart; text about 17px below them.
 - Details modal: width 850, top 32, radius 6, `#181818`; backdrop with `linear-gradient(0deg,#181818,transparent 50%)` fade; content padding 0 48px; close button 36px circle `#181818`.
 - Episode row: padding 16px, radius 4px, 1px `#404040` bottom border; thumbnail ≈130×73 radius 4.
 - Profile dropdown: `#232323`, radius 12px, 1px `rgba(255,255,255,.04)` border, shadow `0 2px 8px rgba(0,0,0,.4)`; items 48 tall, radius 8, padding 8px 12px; avatars 32px radius 4.
@@ -63,6 +63,7 @@ Main reference viewport: 1384×797 CSS px. Values are CSS px unless noted.
 - Header → `.skinHeader` / MUI `header.MuiAppBar-root` (Jellyfin 12 uses the MUI app bar).
 - Rows → `.verticalSection > .sectionTitle` + `.emby-scroller .itemsContainer > .card`.
 - Cards → `.cardScalable`, `.cardImageContainer`, `.cardText`; progress → `.itemProgressBar(Foreground)`.
+- Hover pop-out → landscape cards in rows (`.overflowBackdropCard`): the whole `.cardBox` scales 1.5×, Jellyfin's hover buttons move under the image onto a `::before` panel, and the text slides down. Posters keep a flat hover. A card scrolled to the right edge can't be detected, so its pop-out isn't anchored right as Netflix's is.
 - Details page (`#itemDetailPage`) is a full page, not a modal, so it is a wide `#181818` card (viewport minus the gutters, max 1600px) with Netflix's More Info styling inside. The image is capped at 70vh.
 - Home billboard → Media Bar plugin (`#slides-container`, needs File Transformation 3.x). Its Details button is relabelled "More Info" through CSS; the favourite button stays as a matching round button; slide dots sit bottom-right. The plugin's row offset ignores the 80px header, so the theme sets `.homeSectionsContainer` margin-top itself.
-- **Can't do with CSS alone:** the hero's ambient colour glow (it's derived from each image); Netflix's hover pop-out panel with buttons and episode info (Jellyfin has its own hover overlay, which we restyle); Netflix Sans; the "Top 10" and "Recently added" ribbons.
+- **Can't do with CSS alone:** the hero's ambient colour glow (it's derived from each image); Netflix Sans; the "Top 10" and "Recently added" ribbons.

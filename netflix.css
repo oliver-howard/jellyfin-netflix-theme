@@ -1055,3 +1055,58 @@ body:has(#slides-container:not([style*="none"])) .homeSectionsContainer {
 @media (max-width: 499px) {
   #slides-container .spec-critics { display: none !important; }
 }
+
+/* ---------- 17. Hover pop-out on landscape cards ---------- */
+/* Netflix's hover card: after ~400ms the card grows 1.5× over ~300ms, centred on the card (left-anchored for
+   the first card), 6px radius, #181818 info panel with 16px padding, play disc + round buttons, then title.
+   The whole .cardBox is scaled, so it never reflows the row; sizes inside are Netflix's px ÷ 1.5.
+   .card has `contain: content`, which would clip the pop-out, so it's lifted while hovered. */
+@media (hover: hover) and (pointer: fine) {
+  .layout-desktop .emby-scroller .overflowBackdropCard:hover { contain: none; position: relative; z-index: 2; }
+  .layout-desktop .verticalSection:has(.emby-scroller .overflowBackdropCard:hover) { z-index: 3; }
+  .layout-desktop .emby-scroller .overflowBackdropCard .cardBox { position: relative; isolation: isolate; transition: transform .3s ease; }
+  .layout-desktop .emby-scroller .overflowBackdropCard:hover .cardBox { transform: scale(1.5) !important; transition-delay: .4s; }
+  .layout-desktop .emby-scroller .overflowBackdropCard:first-child .cardBox { transform-origin: left center; }
+  /* Panel: covers the image, the button row (moved under the image) and the text */
+  .layout-desktop .emby-scroller .overflowBackdropCard .cardBox::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 -42px;
+    z-index: -1;
+    background: var(--nf-surface);
+    border-radius: 4px;
+    box-shadow: 0 2px 6.67px rgba(0, 0, 0, .75);
+    opacity: 0;
+    transition: opacity .3s;
+  }
+  .layout-desktop .emby-scroller .overflowBackdropCard:hover .cardBox::before { opacity: 1; transition-delay: .4s; }
+  .layout-desktop .emby-scroller .overflowBackdropCard .cardText { transition: transform .3s ease, padding .3s; }
+  .layout-desktop .emby-scroller .overflowBackdropCard:hover .cardText { transform: translateY(36px); padding-left: 10.67px !important; transition-delay: .4s; }
+  .layout-desktop .emby-scroller .overflowBackdropCard:hover :is(.cardScalable, .cardOverlayContainer) { overflow: visible; }
+  .layout-desktop .emby-scroller .overflowBackdropCard:hover :is(.cardScalable, .cardImageContainer, .blurhash-canvas, .cardOverlayContainer) {
+    border-radius: 4px 4px 0 0 !important;
+    transition: border-radius 0s .4s;
+  }
+  /* Jellyfin adds the overlay on mouseenter: hold it back until the card has grown */
+  .layout-desktop .emby-scroller .overflowBackdropCard:hover .cardOverlayContainer { background: none !important; animation: nf-pop-in .3s .4s both; }
+  .layout-desktop .emby-scroller .overflowBackdropCard:hover .cardOverlayContainer > .cardOverlayButton {
+    left: 10.67px !important;
+    top: calc(100% + 10.67px) !important;
+    bottom: auto !important;
+    width: 22.67px;
+    height: 22.67px;
+    transform: none !important;
+  }
+  .layout-desktop .emby-scroller .overflowBackdropCard:hover .cardOverlayContainer > .cardOverlayButton .cardOverlayButtonIcon { font-size: 16px !important; }
+  .layout-desktop .emby-scroller .overflowBackdropCard:hover .cardOverlayButton-br {
+    left: 38.67px !important;
+    right: auto !important;
+    top: calc(100% + 9.33px) !important;
+    bottom: auto !important;
+    justify-content: flex-start;
+    gap: 5.33px;
+  }
+  .layout-desktop .emby-scroller .overflowBackdropCard:hover .cardOverlayButton-br .cardOverlayButton { width: 25.33px; height: 25.33px; border-width: 1.33px !important; }
+  .layout-desktop .emby-scroller .overflowBackdropCard:hover .cardOverlayButton-br .cardOverlayButtonIcon { font-size: 12px !important; }
+}
+@keyframes nf-pop-in { from { opacity: 0; } }
