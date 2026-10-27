@@ -137,6 +137,8 @@ header.MuiAppBar-root .MuiAvatar-root {
   height: 32px !important;
   border-radius: 4px !important;
 }
+/* The avatar button has no padding; match the 24px glyph spacing of the 12px-padded icon buttons */
+header.MuiAppBar-root .MuiIconButton-root:has(> .MuiAvatar-root) { margin-left: 12px !important; }
 
 /* ---------- 4. Rows ---------- */
 .homeSectionsContainer { padding-top: 8px; }
@@ -713,6 +715,8 @@ body:has(#itemDetailPage:not(.hide)) .backdropContainer { z-index: 0 !important;
   box-shadow: rgba(0, 0, 0, .4) 0 2px 8px !important;
   color: #fff !important;
 }
+/* Drop the profile menu clear of the avatar instead of touching it */
+#app-user-menu .MuiMenu-paper { margin-top: 8px; }
 .MuiMenu-list { padding: 4px !important; }
 .MuiMenu-list .MuiMenuItem-root {
   min-height: 48px;
