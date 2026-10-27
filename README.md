@@ -1,3 +1,5 @@
+<p align="center"><img src="assets/jellyflix-banner.png" alt="Jellyflix" width="640"></p>
+
 # Jellyflix
 
 A CSS theme for Jellyfin that makes the Jellyfin 12 web client look like Netflix.
