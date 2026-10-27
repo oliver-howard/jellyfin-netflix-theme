@@ -936,6 +936,8 @@ body:has(#slides-container:not([style*="none"])) .homeSectionsContainer {
 #slides-container .gradient-overlay,
 #slides-container .video-container { -webkit-mask-image: none !important; mask-image: none !important; border-radius: 0 !important; }
 #slides-container .backdrop { animation: none !important; transform: none !important; filter: none !important; border-radius: 0 !important; object-position: center 20% !important; }
+/* Media Bar marks the artwork with-video once the trailer starts; leave only the text gradients over it. */
+#slides-container .backdrop.with-video { opacity: 0 !important; }
 #slides-container .backdrop-overlay { background: none !important; }
 #slides-container .gradient-overlay {
   background: linear-gradient(90deg, rgba(0, 0, 0, .6) 0%, rgba(0, 0, 0, 0) 60%),
@@ -1044,16 +1046,27 @@ body:has(#slides-container:not([style*="none"])) .homeSectionsContainer {
 }
 #slides-container .favorite-button.favorited { color: #fff !important; }
 
-/* Slide dots: small and quiet, bottom-right where Netflix puts its badges */
+/* Slide dots and arrows: bottom-right, centred on the button row. Media Bar's JS writes a px `top`
+   under the text block onto both, which lands on (and gets clipped by) the card's bottom edge here. */
 #slides-container .dots-container {
   top: auto !important;
   left: auto !important;
-  right: 36px !important;
-  bottom: 56px !important;
+  right: 132px !important;
+  bottom: 57px !important;
   transform: none !important;
 }
 #slides-container .dot { width: 6px !important; height: 6px !important; margin: 0 3px !important; background-color: rgba(255, 255, 255, .4) !important; }
 #slides-container .dot.active { width: 18px !important; border-radius: 3px !important; background-color: #fff !important; }
+#slides-container .arrow { top: auto !important; left: auto !important; bottom: 42px !important; width: 36px !important; height: 36px !important; box-sizing: border-box; transform: none !important; }
+#slides-container .arrow i { font-size: 24px !important; }
+#slides-container .right-arrow { right: 36px !important; }
+#slides-container .left-arrow { right: 80px !important; }
+/* Settings, mute and pause: one row on the same 36px inset, top-right (the plugin uses rem offsets) */
+#slides-container .ss-chrome { top: 36px !important; line-height: 0; }
+#slides-container .ss-chrome i { font-size: 24px !important; }
+#slides-container .pause-button { right: 36px !important; }
+#slides-container .volume-toggle { right: 72px !important; }
+#slides-container .ss-settings-toggle { right: 108px !important; }
 
 @media (max-width: 1099px) {
   #slides-container .logo-container { height: 80px !important; }
@@ -1066,7 +1079,18 @@ body:has(#slides-container:not([style*="none"])) .homeSectionsContainer {
   #slides-container .spec-line { font-size: 14px !important; min-height: 24px !important; }
   #slides-container .plot { font-size: 16px !important; line-height: 22px !important; }
   #slides-container .button-container { margin-top: 20px !important; }
-  #slides-container .dots-container { right: 20px !important; top: 20px !important; bottom: auto !important; }
+  #slides-container .dots-container { right: 20px !important; top: 60px !important; bottom: auto !important; }
+  #slides-container .arrow { bottom: 26px !important; }
+  #slides-container .right-arrow { right: 20px !important; }
+  #slides-container .left-arrow { right: 64px !important; }
+  #slides-container .ss-chrome { top: 20px !important; }
+  #slides-container .pause-button { right: 20px !important; }
+  #slides-container .volume-toggle { right: 56px !important; }
+  #slides-container .ss-settings-toggle { right: 92px !important; }
+}
+/* The plugin hides mute (and the arrows) on portrait phones; close the gap mute leaves */
+@media (max-width: 767px) and (orientation: portrait) {
+  #slides-container .ss-settings-toggle { right: 56px !important; }
 }
 @media (max-width: 499px) {
   #slides-container .spec-critics { display: none !important; }
