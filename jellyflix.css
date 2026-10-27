@@ -1,7 +1,7 @@
 /* =====================================================================
-   Netflix theme for Jellyfin 12 (web) — custom CSS
-   Source of truth: ~/jellyfin-netflix-theme/netflix.css
-   Spec: ~/jellyfin-netflix-theme/DESIGN-SPEC.md (measured from netflix.com, 2026-10-26)
+   Jellyflix — a Netflix theme for Jellyfin 12 (web) — custom CSS
+   Source of truth: ~/jellyflix/jellyflix.css
+   Spec: ~/jellyflix/DESIGN-SPEC.md (measured from netflix.com, 2026-10-26)
    ===================================================================== */
 
 @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
