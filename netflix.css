@@ -399,7 +399,7 @@ header.MuiAppBar-root > .MuiToolbar-root + .MuiToolbar-root .MuiDivider-root { d
   background: linear-gradient(180deg, transparent var(--nf-modal-img-h), var(--nf-surface) var(--nf-modal-img-h)) !important;
 }
 html:not(.transparentDocument) body:has(#itemDetailPage:not(.hide)),
-html:not(.transparentDocument) body:has(#itemDetailPage:not(.hide)) .backgroundContainer { background-color: #060606 !important; }
+html:not(.transparentDocument) body:has(#itemDetailPage:not(.hide)) .backgroundContainer { background-color: var(--nf-surface) !important; }
 
 /* The rotating backdrop becomes the card's hero image */
 body:has(#itemDetailPage:not(.hide)) .backdropContainer {
@@ -447,6 +447,7 @@ body:has(#itemDetailPage:not(.hide)) .backdropContainer { z-index: 0 !important;
 #itemDetailPage .detailPageWrapperContainer {
   position: relative;
   z-index: 1;
+  background: none !important; /* Jellyfin's black gradient darkens the #181818 surface */
   margin-top: calc(-1 * var(--nf-modal-overlap));
   padding: 0 !important;
 }
@@ -865,8 +866,23 @@ header.MuiAppBar-root > .MuiToolbar-root + .MuiToolbar-root .MuiButton-contained
 #reactRoot > div > .skinHeader:not(.osdHeader) .headerBackButton .material-icons { font-size: 28px; }
 #reactRoot > div > .skinHeader:not(.osdHeader) .headerBackButton.hide { display: none !important; }
 /* Make room for it: the logo slides right while the back button is showing */
-body:has(#reactRoot > div > .skinHeader:not(.osdHeader) .headerBackButton:not(.hide)) header.MuiAppBar-root > .MuiToolbar-root:first-child {
+body:not(:has(#itemDetailPage:not(.hide))):has(#reactRoot > div > .skinHeader:not(.osdHeader) .headerBackButton:not(.hide)) header.MuiAppBar-root > .MuiToolbar-root:first-child {
   padding-left: calc(var(--nf-gutter) + 40px) !important;
+}
+/* On details, the existing back arrow rides inside the banner and scrolls with it. */
+body:has(#itemDetailPage:not(.hide)) #reactRoot > div > .skinHeader:not(.osdHeader) {
+  position: absolute !important;
+  top: calc(var(--nf-header-h) + 48px);
+  left: calc((100vw - var(--nf-details-w)) / 2 + 16px);
+  height: 40px;
+  padding: 0 !important;
+}
+body:has(#itemDetailPage:not(.hide)) #reactRoot > div > .skinHeader:not(.osdHeader) .headerBackButton {
+  background: var(--nf-icon-btn) !important;
+  border-radius: 50%;
+}
+@media (max-width: 849px) {
+  body:has(#itemDetailPage:not(.hide)) #reactRoot > div > .skinHeader:not(.osdHeader) { top: calc(var(--nf-header-h) + 16px); }
 }
 /* The video player has its own back arrow */
 body:has(#videoOsdPage:not(.hide)) #reactRoot > div:has(> .mainDrawer):has(> .skinHeader) { display: none !important; }
