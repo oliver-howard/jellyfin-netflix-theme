@@ -228,6 +228,9 @@ header.MuiAppBar-root .MuiAvatar-root {
 .cardScalable { overflow: hidden; background: transparent; }
 .cardImageContainer { background-color: #232323; }
 .cardBox:not(.visualCardBox) { box-shadow: none !important; }
+/* JellyFrame's "jellyfin-better-styles" scales hovered cards 1.1×: the row clips the controls and the
+   scaled layer loses its rounded corners */
+.itemsContainer .card:hover .cardBox { transform: none !important; }
 
 /* Progress: red bar on a 30% white track */
 .itemProgressBar { height: 2px !important; background: rgba(255, 255, 255, .3) !important; }
