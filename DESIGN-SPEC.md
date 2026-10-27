@@ -35,13 +35,13 @@ Main reference viewport: 1384×797 CSS px. Values are CSS px unless noted.
 - Badges (HD): 11.2px, 1px `rgba(255,255,255,.4)` border, radius 3px, padding 0 5.6px.
 
 ## Layout
-- Side gutter: 60px (≥ ~1900 vw), 48px (~1400), 36px (≤ ~1100).
+- Side gutter (Netflix's row stylesheet): 24px (< 600), 36px (600–1279), 48px (1280–1599), 60px (1600–2559), 72px (≥ 2560).
 - Header: sticky, height 80, padding 0 / gutter. Background `linear-gradient(rgba(0,0,0,.8), transparent)` at the top; solid `#000` once scrolled (transition: background-color .4s).
 - Nav pills: group padding 4px, gap 6px; each pill padding 10px 16px, radius 24px; active bg `rgba(255,255,255,.2)`; transition background-color .2s.
 - Logo: 76×20 at 1384, red `#e50914`.
 - Hero: inset card at x = gutter, top 88, 1288×591 at 1384×797 (≈ 74vh, ≈ width × .4588), radius 24px, shadow `rgba(0,0,0,.45) 10px 20px 32px 0`, overflow hidden, content padding 36px, anchored bottom-left. Overlay `linear-gradient(90deg, rgba(0,0,0,.6) 0%, transparent 60%), linear-gradient(0deg, rgba(0,0,0,.5) 0%, rgba(0,0,0,.1) 35%, transparent 70%)`. Title logo ≤ 415×166, 20px above meta; meta → description 8px; description → buttons 32px; buttons 12px apart. First row title 36px below the card. Ambient radial glow from the hero colour behind the page top. Badges ("Recently Added") bottom-right: 13px / 500, `rgba(0,0,0,.5)`, padding 8px, radius 8px.
 - Rows: title→cards 13px; card bottom→next title 36px (≈ 221px row pitch at 1384).
-- Cards: 16:9 backdrops, radius 12px, gap 8px; 5 visible + peek at 1384, 7 at 2077 (card width = (vw − 2·gutter − (n−1)·8) / n).
+- Cards: 16:9 backdrops, radius 12px, gap 8px. Width = (page width without scrollbar − 2·gutter − (n−1)·8) / n, with n = 2 (< 600), 3 (600–959), 4 (960–1279), 5 (1280–1599), 6 (1600–1919), 7 (1920–2559), 8 (≥ 2560) by viewport width. Read from Netflix's `--slot-width` rules 2026-10-27; 248.2×139.7 at 1384 (1369 client).
 - Search grid: 5 columns, column gap 8, row gap 19, gutter 60, radius 12.
 
 ## Components

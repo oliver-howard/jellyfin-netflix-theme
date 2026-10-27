@@ -33,15 +33,18 @@
   --nf-cols-portrait: 7; /* poster cards visible per row */
   --nf-radius: 12px;
   --nf-header-h: 80px;
-  --nf-card-w: calc((100vw - 2 * var(--nf-gutter) - (var(--nf-cols) - 1) * var(--nf-gap)) / var(--nf-cols));
-  --nf-poster-w: calc((100vw - 2 * var(--nf-gutter) - (var(--nf-cols-portrait) - 1) * var(--nf-gap)) / var(--nf-cols-portrait));
+  /* Netflix sizes slots from the page width without the scrollbar (100cqw of .page), not 100vw */
+  --nf-card-w: calc((100cqw - 2 * var(--nf-gutter) - (var(--nf-cols) - 1) * var(--nf-gap)) / var(--nf-cols));
+  --nf-poster-w: calc((100cqw - 2 * var(--nf-gutter) - (var(--nf-cols-portrait) - 1) * var(--nf-gap)) / var(--nf-cols-portrait));
 }
-@media (max-width: 1099px) { :root { --nf-gutter: 36px; --nf-cols: 4; --nf-cols-portrait: 6; } }
-@media (max-width: 799px)  { :root { --nf-cols: 3; --nf-cols-portrait: 4; } }
-@media (max-width: 499px)  { :root { --nf-gutter: 16px; --nf-cols: 2; --nf-cols-portrait: 3; } }
-@media (min-width: 1400px) { :root { --nf-cols: 6; --nf-cols-portrait: 8; } }
-@media (min-width: 1800px) { :root { --nf-cols: 7; --nf-cols-portrait: 9; } }
-@media (min-width: 1900px) { :root { --nf-gutter: 60px; } }
+.page { container-type: inline-size; }
+/* Netflix's row breakpoints */
+@media (max-width: 599.98px) { :root { --nf-gutter: 24px; --nf-cols: 2; --nf-cols-portrait: 3; } }
+@media (min-width: 600px) and (max-width: 959.98px) { :root { --nf-gutter: 36px; --nf-cols: 3; --nf-cols-portrait: 4; } }
+@media (min-width: 960px) and (max-width: 1279.98px) { :root { --nf-gutter: 36px; --nf-cols: 4; --nf-cols-portrait: 6; } }
+@media (min-width: 1600px) { :root { --nf-gutter: 60px; --nf-cols: 6; --nf-cols-portrait: 8; } }
+@media (min-width: 1920px) { :root { --nf-cols: 7; --nf-cols-portrait: 9; } }
+@media (min-width: 2560px) { :root { --nf-gutter: 72px; --nf-cols: 8; --nf-cols-portrait: 10; } }
 
 /* ---------- 2. Base ---------- */
 /* Never paint over a transparent document: native players (desktop/mobile apps) render behind it */
