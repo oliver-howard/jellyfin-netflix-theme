@@ -53,6 +53,7 @@ Main reference viewport: 1384×797 CSS px. Values are CSS px unless noted.
 - Episode row: padding 16px, radius 4px, 1px `#404040` bottom border; thumbnail ≈130×73 radius 4.
 - Profile dropdown: `#232323`, radius 12px, 1px `rgba(255,255,255,.04)` border, shadow `0 2px 8px rgba(0,0,0,.4)`; items 48 tall, radius 8, padding 8px 12px; avatars 32px radius 4.
 - Search input: 400×56 pill, padding 16px 53px 16px 48px, 1px light border.
+- Search "More to explore:" row: flex at the gutter; label 16/400 rgba(255,255,255,.5); links 16/400 #fff, line 24, each in a wrapper with margin 3px 0 3px 8px, 8px right margin and a 1px rgba(255,255,255,.5) right border; wraps under the label.
 
 ## Motion
 - Nav background: .4s linear. Pill background: .2s.

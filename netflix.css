@@ -701,8 +701,15 @@ body:has(#itemDetailPage:not(.hide)) .backdropContainer { z-index: 0 !important;
 .searchFieldsInner .jellyseerr-icon { top: 50% !important; transform: translateY(-50%); right: 14px !important; width: 26px !important; }
 /* Search results / suggestions */
 .searchResults .verticalSection, .searchSuggestions .verticalSection { margin-bottom: 24px; }
-.searchSuggestions .sectionTitle { color: rgba(255, 255, 255, .5) !important; font-size: 16px !important; font-weight: 400 !important; }
-.searchSuggestions a, .searchSuggestions .button-link { color: #fff !important; font-size: 16px; }
+/* Netflix "More to explore:" row: grey label at the gutter, then wrapping inline links split by 1px bars */
+.searchSuggestions { display: flex; align-items: flex-start; padding: 0 var(--nf-gutter); text-align: left; }
+.searchSuggestions > div:first-child { flex-shrink: 0; }
+.searchSuggestions .sectionTitle { margin: 3px 0 !important; padding: 0 !important; color: rgba(255, 255, 255, .5) !important; font-size: 16px !important; font-weight: 400 !important; line-height: 24px; white-space: nowrap; }
+.searchSuggestions .sectionTitle::after { content: ":"; }
+.searchSuggestionsList { display: flex; flex-wrap: wrap; padding: 0 !important; }
+.searchSuggestionsList > div { margin: 3px 0 3px 8px; border-right: 1px solid rgba(255, 255, 255, .5); }
+.searchSuggestionsList > div:last-child { border-right: 0; }
+.searchSuggestions a, .searchSuggestions .button-link { margin: 0 8px 0 0 !important; padding: 0 !important; color: #fff !important; font-size: 16px; font-weight: 400 !important; line-height: 24px; text-align: left; }
 .noItemsMessage, .searchSuggestions .noItemsMessage { color: var(--nf-text-meta); font-size: 16px; }
 
 /* ---------- 10. Menus (profile menu, context menus, selects) ---------- */
