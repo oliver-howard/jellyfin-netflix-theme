@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/jellyflix-banner.png" alt="Jellyflix" width="420">
+  <img src="assets/jellyflix-logo.png" alt="Jellyflix" width="420">
 </p>
 <p align="center">A CSS theme for Jellyfin that makes the Jellyfin 12 web client look like Netflix.</p>
 
