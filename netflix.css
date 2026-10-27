@@ -625,12 +625,14 @@ body:has(#itemDetailPage:not(.hide)) .backdropContainer { z-index: 0 !important;
   height: 34px !important;
   padding: 0 !important;
   margin: 0 !important;
+  position: absolute !important;
   top: 50% !important;
   left: 50% !important;
   transform: translate(-50%, -50%);
   border: 1px solid #fff !important;
   border-radius: 50% !important;
   background: rgba(30, 30, 20, .5) !important;
+  color: #fff !important;
   opacity: 0;
   transition: opacity .2s;
 }
