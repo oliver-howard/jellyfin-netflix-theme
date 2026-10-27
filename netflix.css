@@ -886,3 +886,169 @@ body:has(#videoOsdPage:not(.hide)) #reactRoot > div:has(> .mainDrawer):has(> .sk
   .cardOverlayButton-br .cardOverlayButton { width: 30px; height: 30px; }
   .cardOverlayButton-br .cardOverlayButtonIcon { font-size: 16px !important; }
 }
+
+/* ---------- 16. Media Bar plugin → Netflix billboard ---------- */
+/* The Media Bar plugin (needs File Transformation 3.x) puts #slides-container at the top of <body>.
+   Netflix's billboard is an inset card: gutter-wide, 8px under the header, 24px radius, 36px padding,
+   content anchored to the bottom-left; the first row starts 36px below it. */
+:root {
+  --nf-billboard-top: calc(var(--nf-header-h) + 8px);
+  --nf-billboard-h: max(360px, min(74vh, calc((100vw - 2 * var(--nf-gutter)) * .4588)));
+}
+/* The page already starts under the header, so the rows only clear the card plus its gaps */
+body:has(#slides-container:not([style*="none"])) .homeSectionsContainer {
+  margin-top: calc(var(--nf-billboard-h) + 8px + 36px) !important;
+  padding-top: 0 !important;
+}
+#slides-container {
+  top: var(--nf-billboard-top) !important;
+  left: var(--nf-gutter) !important;
+  right: var(--nf-gutter) !important;
+  width: auto !important;
+  height: var(--nf-billboard-h) !important;
+  border-radius: 24px;
+  overflow: hidden !important;
+  box-shadow: rgba(0, 0, 0, .45) 10px 20px 32px 0;
+  font-family: var(--nf-font);
+}
+/* Full-bleed image, no Ken Burns zoom, no bottom fade mask; Netflix's two gradients instead */
+#slides-container .backdrop-container,
+#slides-container .backdrop-overlay,
+#slides-container .gradient-overlay,
+#slides-container .video-container { -webkit-mask-image: none !important; mask-image: none !important; border-radius: 0 !important; }
+#slides-container .backdrop { animation: none !important; transform: none !important; filter: none !important; border-radius: 0 !important; object-position: center 20% !important; }
+#slides-container .backdrop-overlay { background: none !important; }
+#slides-container .gradient-overlay {
+  background: linear-gradient(90deg, rgba(0, 0, 0, .6) 0%, rgba(0, 0, 0, 0) 60%),
+              linear-gradient(0deg, rgba(0, 0, 0, .5) 0%, rgba(0, 0, 0, .1) 35%, rgba(0, 0, 0, 0) 70%) !important;
+}
+
+/* Content: bottom-left, 36px in */
+#slides-container .slide-content {
+  top: auto !important;
+  left: 36px !important;
+  right: auto !important;
+  bottom: 36px !important;
+  width: calc(100% - 72px) !important;
+  max-height: calc(100% - 72px) !important;
+  gap: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  transform: none !important;
+  align-items: flex-start !important;
+  text-align: left !important;
+  pointer-events: none; /* spans the card; let clicks reach the dots */
+}
+#slides-container .slide-content > * { pointer-events: auto; }
+#slides-container .logo-container { height: clamp(64px, 12vw, 166px) !important; width: min(100%, 500px) !important; margin: 0 0 20px !important; justify-content: flex-start !important; }
+#slides-container .logo { animation: none !important; filter: none !important; object-position: left bottom !important; max-width: 83% !important; }
+
+/* Meta line: "2017 • ★ 8.1 • 3 Seasons • Reality • PG", 16px, bullets at 40% white */
+#slides-container .spec-rail,
+#slides-container .spec-divider { display: none !important; }
+#slides-container .spec-line {
+  min-height: 32px !important;
+  margin: 0 0 8px !important;
+  gap: 8px;
+  font-family: var(--nf-font) !important;
+  font-size: 16px !important;
+  font-weight: 500;
+  letter-spacing: normal !important;
+  text-transform: none !important;
+  color: #fff !important;
+}
+#slides-container .spec-line { flex-wrap: wrap !important; row-gap: 0 !important; }
+#slides-container .spec-item { padding: 0 !important; border: 0 !important; gap: 4px; white-space: nowrap; }
+#slides-container .spec-item + .spec-item::before,
+#slides-container .spec-item + .spec-cert::before {
+  content: "•" !important;
+  position: static !important;
+  width: auto !important;
+  margin-right: 8px;
+  background: none !important;
+  color: rgba(255, 255, 255, .4);
+}
+#slides-container .spec-cert { margin: 0 !important; padding: 0 !important; border: 0 !important; font-weight: 400 !important; letter-spacing: normal !important; }
+#slides-container .community-rating-star { color: #fff !important; font-size: 15px !important; }
+
+/* Description: 20px / 28px white, three lines */
+#slides-container .plot-container { display: block !important; width: 100% !important; max-width: 500px; margin: 0 !important; }
+#slides-container .plot {
+  font-family: var(--nf-font) !important;
+  font-size: 20px !important;
+  font-weight: 400 !important;
+  line-height: 28px !important;
+  color: #fff !important;
+  -webkit-line-clamp: 3 !important;
+  line-clamp: 3 !important;
+}
+
+/* Buttons: 48px pills, 12px apart. Details becomes "More Info" */
+#slides-container .button-container { width: auto !important; margin: 32px 0 0 !important; gap: 12px !important; justify-content: flex-start !important; }
+#slides-container .play-button,
+#slides-container .detail-button {
+  flex: 0 0 auto !important;
+  width: auto !important;
+  height: 48px !important;
+  padding: 8px 20px !important;
+  gap: 8px !important;
+  border: 0 !important;
+  border-radius: 9999px !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  font-family: var(--nf-font) !important;
+  font-size: 18px !important;
+  font-weight: 500 !important;
+  line-height: 18px !important;
+  transition: background-color .25s var(--nf-ease) !important;
+}
+#slides-container .play-button { background: #fff !important; color: #000 !important; }
+#slides-container .play-button:hover { background: rgba(255, 255, 255, .75) !important; }
+#slides-container .play-button::before { font-size: 32px !important; font-weight: 400 !important; margin-left: -6px; }
+#slides-container .detail-button { background: var(--nf-btn-secondary) !important; color: #fff !important; }
+#slides-container .detail-button:hover,
+#slides-container .favorite-button:hover { background: rgba(109, 109, 110, .4) !important; }
+#slides-container .detail-button::before { display: none !important; }
+#slides-container .detail-button::after { content: "More Info"; }
+/* Favourite has no Netflix twin on the billboard; keep it as a matching round button */
+#slides-container .favorite-button {
+  width: 48px !important;
+  height: 48px !important;
+  border: 0 !important;
+  background: var(--nf-btn-secondary) !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+#slides-container .favorite-button.favorited { color: #fff !important; }
+
+/* Slide dots: small and quiet, bottom-right where Netflix puts its badges */
+#slides-container .dots-container {
+  top: auto !important;
+  left: auto !important;
+  right: 36px !important;
+  bottom: 56px !important;
+  transform: none !important;
+}
+#slides-container .dot { width: 6px !important; height: 6px !important; margin: 0 3px !important; background-color: rgba(255, 255, 255, .4) !important; }
+#slides-container .dot.active { width: 18px !important; border-radius: 3px !important; background-color: #fff !important; }
+
+@media (max-width: 1099px) {
+  #slides-container .logo-container { height: 80px !important; }
+}
+@media (max-width: 799px) {
+  #slides-container .spec-genre { display: none !important; }
+  #slides-container .slide-content { left: 20px !important; bottom: 20px !important; width: calc(100% - 40px) !important; max-height: calc(100% - 40px) !important; }
+  #slides-container .logo-container { width: 100% !important; }
+  #slides-container .logo-container { height: 72px !important; margin-bottom: 12px !important; }
+  #slides-container .spec-line { font-size: 14px !important; min-height: 24px !important; }
+  #slides-container .plot { font-size: 16px !important; line-height: 22px !important; }
+  #slides-container .button-container { margin-top: 20px !important; }
+  #slides-container .dots-container { right: 20px !important; top: 20px !important; bottom: auto !important; }
+}
+@media (max-width: 499px) {
+  #slides-container .spec-critics { display: none !important; }
+}

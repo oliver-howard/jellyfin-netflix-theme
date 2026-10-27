@@ -28,7 +28,7 @@ Main reference viewport: 1384×797 CSS px. Values are CSS px unless noted.
 - Family: `Netflix Sans` → fallback `"Helvetica Neue", "Segoe UI", Roboto, Ubuntu, sans-serif`. Netflix Sans isn't licensed for us, so we use the fallback stack.
 - Nav links: 16px / 400, inactive at 70% white; active is 500 white in a pill.
 - Row title (h2): 24px / 500 (18px under ~1100px viewport).
-- Hero meta: 18px / 500; hero description: 24px / 30px line-height.
+- Hero meta: 16px / 500 items, `•` separators at 40% white, gap 8px, row 32px tall; rating (TV-MA) 400. Hero description: 20px / 28px white, ≈500px wide (re-measured 2026-10-26; an earlier title measured 18px meta, 24/30 description).
 - Hero buttons: 18px / 500.
 - Modal: section heading 24px / 500, top-10 line 20px / 500, description 14px / 24px, cast labels 14px / 20px.
 - Episode: title 16px / 500, duration 16px, synopsis 14px / 20px `#d2d2d2`, number 24px `#d2d2d2`.
@@ -39,7 +39,7 @@ Main reference viewport: 1384×797 CSS px. Values are CSS px unless noted.
 - Header: sticky, height 80, padding 0 / gutter. Background `linear-gradient(rgba(0,0,0,.8), transparent)` at the top; solid `#000` once scrolled (transition: background-color .4s).
 - Nav pills: group padding 4px, gap 6px; each pill padding 10px 16px, radius 24px; active bg `rgba(255,255,255,.2)`; transition background-color .2s.
 - Logo: 76×20 at 1384, red `#e50914`.
-- Hero: inset card at x = gutter, top 88, height ≈ 591 (≈ 74vh), radius 24px, shadow `0 10px 20px 32px rgba(0,0,0,.45)`, content padding 36px. Ambient radial glow from the hero colour behind the page top.
+- Hero: inset card at x = gutter, top 88, 1288×591 at 1384×797 (≈ 74vh, ≈ width × .4588), radius 24px, shadow `rgba(0,0,0,.45) 10px 20px 32px 0`, overflow hidden, content padding 36px, anchored bottom-left. Overlay `linear-gradient(90deg, rgba(0,0,0,.6) 0%, transparent 60%), linear-gradient(0deg, rgba(0,0,0,.5) 0%, rgba(0,0,0,.1) 35%, transparent 70%)`. Title logo ≤ 415×166, 20px above meta; meta → description 8px; description → buttons 32px; buttons 12px apart. First row title 36px below the card. Ambient radial glow from the hero colour behind the page top. Badges ("Recently Added") bottom-right: 13px / 500, `rgba(0,0,0,.5)`, padding 8px, radius 8px.
 - Rows: title→cards 13px; card bottom→next title 36px (≈ 221px row pitch at 1384).
 - Cards: 16:9 backdrops, radius 12px, gap 8px; 5 visible + peek at 1384, 7 at 2077 (card width = (vw − 2·gutter − (n−1)·8) / n).
 - Search grid: 5 columns, column gap 8, row gap 19, gutter 60, radius 12.
@@ -64,4 +64,5 @@ Main reference viewport: 1384×797 CSS px. Values are CSS px unless noted.
 - Rows → `.verticalSection > .sectionTitle` + `.emby-scroller .itemsContainer > .card`.
 - Cards → `.cardScalable`, `.cardImageContainer`, `.cardText`; progress → `.itemProgressBar(Foreground)`.
 - Details page (`#itemDetailPage`) is a full page, not a modal, so it is a wide `#181818` card (viewport minus the gutters, max 1600px) with Netflix's More Info styling inside. The image is capped at 70vh.
-- **Can't do with CSS alone:** a home hero/billboard (no featured-item markup on the home page); Netflix's hover pop-out panel with buttons and episode info (Jellyfin has its own hover overlay, which we restyle); Netflix Sans; the "Top 10" and "Recently added" ribbons.
+- Home billboard → Media Bar plugin (`#slides-container`, needs File Transformation 3.x). Its Details button is relabelled "More Info" through CSS; the favourite button stays as a matching round button; slide dots sit bottom-right. The plugin's row offset ignores the 80px header, so the theme sets `.homeSectionsContainer` margin-top itself.
+- **Can't do with CSS alone:** the hero's ambient colour glow (it's derived from each image); Netflix's hover pop-out panel with buttons and episode info (Jellyfin has its own hover overlay, which we restyle); Netflix Sans; the "Top 10" and "Recently added" ribbons.
