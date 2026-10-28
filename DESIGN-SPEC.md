@@ -70,6 +70,17 @@ Measured from the live Netflix profile selector on 2026-10-26 at 2374×1723 and 
 - Manage Profiles: 40px tall, 16px / 16px, weight 500, padding 6px 16px, pill radius, `rgba(0,0,0,.7)` fill; 36px below desktop profiles, 32px on phone.
 - Jellyfin mapping: `#loginPage .visualLoginForm`, `#divUsers`, `.manualLoginForm`, and `.readOnlyContent`. Nine profiles wrap into two centred rows on desktop and three on phone. Jellyfin's authentication actions replace the Manage Profiles action; actual user pictures remain. Long names may wrap on phone to preserve identification. The visible selector heading is supplied by CSS; Jellyfin retains its original sign-in heading in the DOM.
 
+## Phone details (Netflix iOS app)
+Measured 2026-10-27 from a screenshot of the app at 440pt wide, applied below 700px.
+- Sheet: black (`#000`). 16:9 image inset 12px from the screen edges, 8px top radius, no fade. The close (×) button is a 44px disc, `rgba(51,51,51,.6)`, 11px from the image top and 17px from its right edge. The app bar is hidden.
+- Text column: 24px from the screen edges. Text title 20px / 700, 12px below the image. Metadata row 14px `#bcbcbc`. The rating badge is filled `#414141`, 10px `#ccc`, 2px radius.
+- Buttons: full width, 40px tall, 10px radius. Play is white with black 16px / 600 text, 16px below the metadata. Secondary buttons (Download in the app) are `#333` with white text, 8px apart.
+- Synopsis 15px / 21px white. Credits (Cast:) 12px `#8c8c8c`.
+- Icon actions: one evenly spaced row 20px below the credits. 26px icon over an 11px / 500 `#bcbcbc` label.
+- Episode rows: 115×65 thumbnail, 12px gap, title 15px, synopsis 13px `#bcbcbc` below. No dividers.
+- Jellyfin mapping: `.detailRibbon`, `.mainDetailButtons`, `.detailPagePrimaryContent` and `.detailSection` become `display: contents`, so `.detailPagePrimaryContainer` can order everything as one wrapping flex column. Play / Replay / Download are full width. The other detail buttons share one line and show their `title` as the label. The back button becomes the ×.
+- **Can't do with CSS alone:** the Episodes / More Like This / Trailers tabs (Jellyfin stacks those sections), the "N" original badge and "New episode coming" line, and the per-episode download button.
+
 ## Jellyfin mapping and limits
 - Header → `.skinHeader` / MUI `header.MuiAppBar-root` (Jellyfin 12 uses the MUI app bar).
 - Rows → `.verticalSection > .sectionTitle` + `.emby-scroller .itemsContainer > .card`.

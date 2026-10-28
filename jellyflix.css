@@ -808,17 +808,159 @@ body:not(:has(.backdropContainer .backdropImage)) #itemDetailPage:not(:has(#item
   #itemDetailPage { margin-top: 0; border-radius: 0; }
   body:has(#itemDetailPage:not(.hide)) .backdropContainer { top: var(--nf-header-h); border-radius: 0; }
 }
+/* Phones: the Netflix mobile app's details sheet rather than the web modal */
 @media (max-width: 699px) {
-  #itemDetailPage { --nf-modal-pad: 24px; --nf-modal-overlap: 40px; --nf-logo-h: 80px; }
-  /* Netflix mobile: full-width Play, icon buttons on the row below */
-  #itemDetailPage .mainDetailButtons { width: 100%; flex-wrap: wrap; row-gap: 12px; justify-content: flex-start !important; }
-  #itemDetailPage .mainDetailButtons .btnPlay { flex: 0 0 100%; justify-content: center; }
-  /* Jellyfin's mobile layout centres these; Netflix keeps them left-aligned */
-  #itemDetailPage .infoWrapper, #itemDetailPage .itemMiscInfo, #itemDetailPage .nameContainer { text-align: left !important; justify-content: flex-start !important; }
-  #itemDetailPage .infoWrapper { width: 100%; margin-top: 32px !important; }
-  #itemDetailPage .detailSection { grid-template-columns: minmax(0, 1fr); }
-  #itemDetailPage .detailSection > .itemDetailsGroup { grid-column: 1; grid-row: auto; margin-top: 16px; }
-  #itemDetailPage .detailLogo { width: 70% !important; }
+  :root { --nf-sheet-inset: 12px; }
+  #itemDetailPage {
+    --nf-modal-pad: 24px;
+    --nf-modal-img-h: calc((100vw - 2 * var(--nf-sheet-inset)) * 9 / 16);
+    --nf-modal-overlap: 0px;
+    margin: 0 !important;
+    padding-top: var(--nf-sheet-inset) !important;
+    border-radius: 0;
+    background: #000 !important;
+  }
+  html:not(.transparentDocument) body:has(#itemDetailPage:not(.hide)),
+  html:not(.transparentDocument) body:has(#itemDetailPage:not(.hide)) .backgroundContainer { background-color: #000 !important; }
+  /* The sheet covers the app bar; the back button becomes its close (×) button, top-right on the image */
+  body:has(#itemDetailPage:not(.hide)) header.MuiAppBar-root { display: none !important; }
+  body:has(#itemDetailPage:not(.hide)) #reactRoot > div > .skinHeader:not(.osdHeader) {
+    top: calc(var(--nf-sheet-inset) + 11px) !important;
+    left: auto !important;
+    right: calc(var(--nf-sheet-inset) + 17px) !important;
+  }
+  body:has(#itemDetailPage:not(.hide)) #reactRoot > div > .skinHeader:not(.osdHeader) .headerBackButton {
+    width: 44px;
+    height: 44px;
+    background: rgba(51, 51, 51, .6) !important;
+  }
+  body:has(#itemDetailPage:not(.hide)) #reactRoot > div > .skinHeader:not(.osdHeader) .headerBackButton .material-icons::before { content: "\e5cd"; }
+  /* Inset 16:9 banner with rounded top corners, no fade */
+  #itemDetailPage #itemBackdrop {
+    margin: 0 var(--nf-sheet-inset) !important;
+    border-radius: 8px 8px 0 0;
+    overflow: hidden;
+  }
+  #itemDetailPage #itemBackdrop::after { display: none; }
+  /* Text title instead of the logo, as in the app */
+  #itemDetailPage .detailLogo:not(.hide)[style*="url"] { display: none !important; }
+  #itemDetailPage:has(.detailLogo:not(.hide)[style*="url"]) .nameContainer > h1 { display: block; }
+
+  /* One column: title + metadata, wide buttons, synopsis, credits, icon buttons, then sections.
+     The containers in between become display: contents so everything orders in one flex parent */
+  #itemDetailPage .detailPagePrimaryContainer {
+    display: flex !important;
+    flex-wrap: wrap;
+    padding: 0 var(--nf-modal-pad) !important;
+  }
+  #itemDetailPage .detailPagePrimaryContainer > *,
+  #itemDetailPage .detailSection > * { flex: 0 0 100%; min-width: 0; order: 6; }
+  #itemDetailPage .detailRibbon,
+  #itemDetailPage .mainDetailButtons,
+  #itemDetailPage .detailPagePrimaryContent,
+  #itemDetailPage .detailSection { display: contents !important; }
+  #itemDetailPage .infoWrapper { order: 1; flex: 0 0 100%; width: auto; margin: 12px 0 0 !important; }
+  /* Jellyfin's mobile layout centres these; the app keeps them left-aligned */
+  #itemDetailPage .infoWrapper, #itemDetailPage .itemMiscInfo, #itemDetailPage .nameContainer, #itemDetailPage .nameContainer > * {
+    text-align: left !important;
+    justify-content: flex-start !important;
+    align-items: flex-start !important;
+  }
+  #itemDetailPage .itemName { margin: 0 0 6px !important; font-size: 20px !important; font-weight: 700 !important; line-height: 26px !important; }
+  #itemDetailPage .parentName, #itemDetailPage .itemName.parentName { font-size: 20px !important; font-weight: 700 !important; }
+  #itemDetailPage .nameContainer > h3.subtitle { margin: 0 0 6px !important; font-size: 16px !important; font-weight: 700 !important; }
+
+  /* "2026 [TV-14] 10 Seasons" — 14px grey, filled rating badge */
+  #itemDetailPage .itemMiscInfo, #itemDetailPage .itemMiscInfo .mediaInfoItem { font-size: 14px; line-height: 20px; color: var(--nf-text-meta); }
+  #itemDetailPage .itemMiscInfo { flex-wrap: wrap; row-gap: 4px; }
+  #itemDetailPage .itemMiscInfo .mediaInfoItem { margin-right: 8px !important; }
+  #itemDetailPage .mediaInfoOfficialRating {
+    padding: 0 4px !important;
+    border: 0 !important;
+    border-radius: 2px !important;
+    background: #414141 !important;
+    color: #ccc !important;
+    font-size: 10px !important;
+    line-height: 16px;
+  }
+  #itemDetailPage .mediaInfoText:not(.mediaInfoOfficialRating) { padding: 0 4px !important; font-size: 10px !important; line-height: 14px; }
+  #itemDetailPage .itemMiscInfo .material-icons, #itemDetailPage .starIcon { font-size: 14px !important; }
+
+  /* Full-width buttons: white Play, grey Play-from-start / Download */
+  #itemDetailPage .mainDetailButtons .detailButton.btnPlay,
+  #itemDetailPage .mainDetailButtons .detailButton.btnReplay,
+  #itemDetailPage .mainDetailButtons .detailButton.btnDownload {
+    order: 2;
+    flex: 0 0 100%;
+    width: auto;
+    height: 40px;
+    margin: 8px 0 0 !important;
+    padding: 0 !important;
+    justify-content: center;
+    border: 0 !important;
+    border-radius: 10px !important;
+    background: #333 !important;
+    color: #fff !important;
+  }
+  #itemDetailPage .mainDetailButtons .detailButton.btnPlay { margin-top: 16px !important; background: #fff !important; color: #000 !important; }
+  #itemDetailPage .mainDetailButtons .btnPlay .detailButton-icon { font-size: 32px !important; }
+  #itemDetailPage .mainDetailButtons .btnReplay .detailButton-icon,
+  #itemDetailPage .mainDetailButtons .btnDownload .detailButton-icon { font-size: 24px !important; }
+  #itemDetailPage .mainDetailButtons .btnPlay::after,
+  #itemDetailPage .mainDetailButtons .btnReplay::after,
+  #itemDetailPage .mainDetailButtons .btnDownload::after { content: attr(title); margin-left: 8px; font-size: 16px; font-weight: 600; line-height: 1; }
+
+  #itemDetailPage .detailSection > .trackSelections { order: 3; }
+  /* Synopsis 15/21 white, then the credits in 12px grey */
+  #itemDetailPage .detailSection > .detailSectionContent,
+  #itemDetailPage .detailSection > .itemDetailsGroup { order: 4; margin: 0 !important; }
+  #itemDetailPage .detailSection > .detailSectionContent { display: flex; flex-direction: column; margin-top: 12px !important; }
+  #itemDetailPage .detailSectionContent > .overview { order: -1; }
+  #itemDetailPage .overview, #itemDetailPage .overview p { margin: 0 0 8px !important; font-size: 15px !important; line-height: 21px !important; }
+  #itemDetailPage .itemGenres, #itemDetailPage .itemTags, #itemDetailPage .itemExternalLinks,
+  #itemDetailPage .itemDetailsGroup .detailsGroupItem { margin: 0 0 2px !important; color: #8c8c8c; font-size: 12px !important; line-height: 17px !important; }
+  #itemDetailPage .itemGenres a, #itemDetailPage .itemTags a, #itemDetailPage .itemExternalLinks a,
+  #itemDetailPage .itemDetailsGroup .detailsGroupItem > *:last-child,
+  #itemDetailPage .itemDetailsGroup a { color: #8c8c8c !important; }
+  #itemDetailPage .itemDetailsGroup .detailsGroupItem > * { color: #8c8c8c; font-size: 12px !important; }
+
+  /* Icon buttons: one evenly spaced row, icon over a small label (app: My List / Rated / Share).
+     A non-zero basis makes them wrap onto their own line after the full-width credits */
+  #itemDetailPage .mainDetailButtons .detailButton:not(.btnPlay):not(.btnReplay):not(.btnDownload) {
+    order: 5;
+    flex: 1 1 44px;
+    min-width: 0;
+    width: auto;
+    height: auto;
+    margin: 20px 0 0 !important;
+    padding: 0 !important;
+    flex-direction: column;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: none !important;
+    color: #fff !important;
+  }
+  #itemDetailPage .mainDetailButtons .detailButton:not(.btnPlay):not(.btnReplay):not(.btnDownload) .detailButton-content { flex-direction: column; }
+  #itemDetailPage .mainDetailButtons .detailButton:not(.btnPlay):not(.btnReplay):not(.btnDownload) .detailButton-icon { font-size: 26px !important; }
+  #itemDetailPage .mainDetailButtons .detailButton:not(.btnPlay):not(.btnReplay):not(.btnDownload)::after {
+    content: attr(title);
+    margin-top: 6px;
+    color: #bcbcbc;
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 13px;
+    text-align: center;
+  }
+  #itemDetailPage .sectionTitle { font-size: 20px !important; font-weight: 700 !important; line-height: 26px !important; }
+
+  /* Episode rows as in the app: 115×65 thumbnail, no dividers, synopsis below */
+  #itemDetailPage .listItem.listItem-largeImage { padding: 8px 0 !important; border-bottom: 0 !important; border-radius: 0; }
+  #itemDetailPage .listItem.listItem-largeImage .listItem-content { gap: 12px; }
+  #itemDetailPage .listItemImage.listItemImage-large { width: 115px !important; min-width: 115px; height: 65px !important; }
+  #itemDetailPage .listItem.listItem-largeImage .listItemBodyText:first-child { font-size: 15px !important; line-height: 19px; }
+  #itemDetailPage .listItem.listItem-largeImage .listItemMediaInfo,
+  #itemDetailPage .listItem.listItem-largeImage .listItemMediaInfo .mediaInfoItem { font-size: 13px !important; }
+  #itemDetailPage .listItem.listItem-largeImage .listItem-overview { margin-top: 8px !important; color: var(--nf-text-meta) !important; font-size: 13px !important; line-height: 18px !important; }
 }
 
 /* ---------- 13. Accents, loading & empty states ---------- */
